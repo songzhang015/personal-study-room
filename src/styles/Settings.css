@@ -1,0 +1,22 @@
+.settings {
+}
+
+.open-settings {
+	color: var(--white);
+	position: absolute;
+	top: 1.5rem;
+	right: 2rem;
+	font-family: "Roboto", sans-serif;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 1.5rem;
+	cursor: pointer;
+	font-weight: normal;
+}
+
+.settings-icon {
+	filter: invert();
+	width: 1.65rem;
+	margin-bottom: 1px;
+}

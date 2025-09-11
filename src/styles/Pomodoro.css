@@ -1,0 +1,41 @@
+.pomodoro {
+	position: absolute;
+	top: 47.5%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2.5rem;
+}
+
+.pomodoro > .btn-wrapper {
+	display: flex;
+	gap: 2.5rem;
+}
+
+.pomodoro > .btn-wrapper button {
+	color: var(--white);
+	background: none;
+	border: 2px solid var(--white);
+	padding: 0.6rem 1.2rem;
+	border-radius: 21px;
+	cursor: pointer;
+	font-size: 1.25rem;
+}
+
+.timer {
+	color: var(--white);
+	font-size: 6rem;
+}
+
+.start-btn {
+	color: var(--white);
+	background: none;
+	border: 2px solid var(--white);
+	padding: 0.6rem 3rem;
+	border-radius: 21px;
+	font-size: 1.5rem;
+	cursor: pointer;
+}

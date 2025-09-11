@@ -1,0 +1,12 @@
+.room-title {
+	position: absolute;
+	top: 1.5rem;
+	left: 2rem;
+	cursor: pointer;
+}
+
+.room-title h1 {
+	color: var(--white);
+	font-family: "Roboto", sans-serif;
+	font-weight: normal;
+}
