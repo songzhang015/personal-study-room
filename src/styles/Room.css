@@ -1,11 +1,10 @@
-.settings {
+.room {
 	position: absolute;
-	top: 1.5rem;
+	bottom: 1.5rem;
 	right: 2rem;
-	cursor: pointer;
 }
 
-.settings-btn {
+.room-btn {
 	color: var(--white);
 	font-family: "Roboto", sans-serif;
 	display: flex;
@@ -13,10 +12,11 @@
 	gap: 0.5rem;
 	font-size: 1.5rem;
 	font-weight: normal;
-}
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
 
-.settings-icon {
-	filter: invert();
-	width: 1.65rem;
-	margin-bottom: 1px;
+	border: none;
+	border-top: 2px solid white;
+	padding: 0.5rem 5rem;
 }
