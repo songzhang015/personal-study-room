@@ -2,8 +2,7 @@ import "../styles/Pomodoro.css";
 import { useTimer } from "react-timer-hook";
 
 const expiryTimestamp = new Date();
-expiryTimestamp.setHours(expiryTimestamp.getHours() + 1);
-expiryTimestamp.setMinutes(expiryTimestamp.getMinutes() + 30);
+expiryTimestamp.setMinutes(expiryTimestamp.getMinutes() + 25);
 
 function Pomodoro() {
 	const { seconds, minutes, hours, isRunning, pause, restart, resume } =
@@ -15,8 +14,7 @@ function Pomodoro() {
 
 	const resetPomodoro = () => {
 		const newExpiry = new Date();
-		newExpiry.setHours(newExpiry.getHours() + 1);
-		newExpiry.setMinutes(newExpiry.getMinutes() + 30);
+		newExpiry.setMinutes(newExpiry.getMinutes() + 25);
 		restart(newExpiry);
 		pause();
 	};
@@ -42,8 +40,7 @@ function Pomodoro() {
 				<button onClick={longBreak}>long break</button>
 			</div>
 			<h1 className="timer">
-				{hours}:{minutes.toString().padStart(2, "0")}:
-				{seconds.toString().padStart(2, "0")}
+				{`${hours > 0 ? hours + ":" : ""}${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`}
 			</h1>
 			{!isRunning && (
 				<button className="start-btn" onClick={resume}>
