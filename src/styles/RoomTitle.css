@@ -9,4 +9,14 @@
 	color: var(--white);
 	font-family: "Roboto", sans-serif;
 	font-weight: normal;
+	font-size: 2rem;
+}
+
+.room-title input {
+	color: var(--white);
+	font-family: "Roboto", sans-serif;
+	font-weight: normal;
+	font-size: 2rem;
+	background-color: transparent;
+	border: none;
 }
