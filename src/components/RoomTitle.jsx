@@ -1,9 +1,7 @@
 import "../styles/RoomTitle.css";
 import { useState } from "react";
 
-function RoomTitle() {
-	const defaultTitle = "Personal Study Room";
-	const [title, setTitle] = useState(defaultTitle);
+function RoomTitle({ title, setTitle, defaultTitle }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const handleBlur = () => {
 		let newTitle = title.replace(/^\s+/, "").replace(/\s+$/, "");

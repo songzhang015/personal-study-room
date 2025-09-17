@@ -42,8 +42,9 @@
 }
 
 .settings-menu {
-	background-color: white;
-	color: black;
+	background-color: black;
+	color: white;
+	border: 2px solid white;
 	position: fixed;
 	z-index: 20;
 	top: 50%;
@@ -54,6 +55,7 @@
 	cursor: default;
 	display: flex;
 	gap: 4rem;
+	min-width: 32rem;
 
 	opacity: 0;
 	pointer-events: none;
@@ -76,6 +78,8 @@
 
 .settings-menu .tabs button {
 	background-color: transparent;
+	border: 2px solid white;
+	color: white;
 	cursor: pointer;
 	padding: 0.25rem 0.5rem;
 	text-align: start;
@@ -85,4 +89,50 @@
 .settings-menu .content {
 	display: flex;
 	flex-direction: column;
+}
+
+.settings-menu .tabs button.active {
+	background-color: rgb(85, 85, 85);
+}
+
+.settings-menu .content .timer-row {
+	display: flex;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.timer-row .pomo-col,
+.timer-row .short-col,
+.timer-row .long-col {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1rem;
+}
+
+.timer-row input {
+	width: 5rem;
+	padding: 0.1rem 0.2rem;
+}
+
+.settings-menu .content .btn-row {
+	display: flex;
+	justify-content: space-between;
+}
+
+.settings-menu .content .btn-row .reset-btn {
+	border-radius: 12px;
+	background-color: transparent;
+	color: red;
+	border: 2px solid red;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+}
+
+.settings-menu .content .btn-row .save-btn {
+	border-radius: 12px;
+	background-color: transparent;
+	color: white;
+	border: 2px solid white;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
 }
