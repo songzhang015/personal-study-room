@@ -10,11 +10,12 @@ import birds from "./assets/birds.mp3";
 import notification from "./assets/notification.mp3";
 import lofiGuitar from "./assets/lofi-guitar.mp3";
 import { useState, useRef } from "react";
+import { useLocalStorage } from "./components/localStorage.jsx";
 
 function App() {
-	const [pomoTimer, setPomoTimer] = useState(25);
-	const [shortTimer, setShortTimer] = useState(5);
-	const [longTimer, setLongTimer] = useState(20);
+	const [pomoTimer, setPomoTimer] = useLocalStorage("pomoTimer", 25);
+	const [shortTimer, setShortTimer] = useLocalStorage("shortTimer", 5);
+	const [longTimer, setLongTimer] = useLocalStorage("longTimer", 20);
 
 	const defaultTitle = "Personal Study Room";
 	const [title, setTitle] = useState(defaultTitle);
@@ -28,10 +29,14 @@ function App() {
 	];
 
 	const [timerSound, setTimerSound] = useState(bellOne);
+	const [alarmVolume, setAlarmVolume] = useState(1);
 	const audioRef = useRef(null);
 
-	const playTimerSound = () => {
+	const playTimerSound = (sound = timerSound, volume = alarmVolume) => {
+		audioRef.current.pause();
 		audioRef.current.currentTime = 0;
+		audioRef.current.src = sound;
+		audioRef.current.volume = volume;
 		audioRef.current.play();
 	};
 
@@ -53,6 +58,8 @@ function App() {
 				timerSound={timerSound}
 				setTimerSound={setTimerSound}
 				playTimerSound={playTimerSound}
+				alarmVolume={alarmVolume}
+				setAlarmVolume={setAlarmVolume}
 			/>
 			<Pomodoro
 				pomoTimer={pomoTimer}
@@ -64,7 +71,7 @@ function App() {
 			/>
 			<Tasks />
 			<Room />
-			<audio ref={audioRef} src={timerSound} preload="auto" />
+			<audio ref={audioRef} preload="auto" />
 		</div>
 	);
 }

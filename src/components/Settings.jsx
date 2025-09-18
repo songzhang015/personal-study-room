@@ -13,6 +13,8 @@ function Settings({
 	timerSound,
 	setTimerSound,
 	playTimerSound,
+	alarmVolume,
+	setAlarmVolume,
 }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const openMenu = () => {
@@ -119,7 +121,11 @@ function Settings({
 							<h2>Alarm Sound:</h2>
 							<select
 								value={timerSound}
-								onChange={(e) => setTimerSound(e.target.value)}
+								onChange={(e) => {
+									const newSound = e.target.value;
+									setTimerSound(newSound);
+									playTimerSound(newSound);
+								}}
 							>
 								{soundOptions.map((option, idx) => (
 									<option key={idx} value={option.value}>
@@ -128,8 +134,22 @@ function Settings({
 								))}
 							</select>
 							<h2>Alert Volume:</h2>
-							<p>Slider Here</p>
-							<p>Disable timer sound: on/off</p>
+							<input
+								className="volume-input"
+								type="range"
+								min="0"
+								max="1"
+								step="0.1"
+								value={alarmVolume}
+								onChange={(e) => setAlarmVolume(Number(e.target.value))}
+								onMouseUp={(e) =>
+									playTimerSound(timerSound, Number(e.currentTarget.value))
+								}
+								onTouchEnd={(e) =>
+									playTimerSound(timerSound, Number(e.currentTarget.value))
+								}
+							/>
+							<p>{alarmVolume * 10}</p>
 						</>
 					) : activeTab === "Account" ? (
 						<>

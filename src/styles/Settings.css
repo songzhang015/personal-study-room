@@ -136,3 +136,11 @@
 	padding: 0.5rem 1rem;
 	cursor: pointer;
 }
+
+.settings-menu .content select {
+	margin-bottom: 1rem;
+}
+
+.volume-input {
+	cursor: pointer;
+}
