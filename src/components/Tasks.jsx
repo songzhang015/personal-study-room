@@ -1,55 +1,53 @@
 import "../styles/Tasks.css";
 import { useState } from "react";
-import { useLocalStorage } from "./localStorage.jsx";
+import { useLocalStorage } from "./localStorage";
+import { useStorage } from "./Storage";
 import editIcon from "../assets/edit-icon.svg";
 import deleteIcon from "../assets/delete-icon.svg";
 
-function Tasks() {
+function Tasks({ isLoggedIn, token }) {
 	const [viewMode, setViewMode] = useState("minimized"); // minimized, expanded
-	const [tasks, setTasks] = useLocalStorage("tasks", [
-		{ id: 1, text: "Task 1", checked: false, isEditing: false },
-		{ id: 2, text: "Task 2", checked: false, isEditing: false },
-	]);
+	const [tasks, setTasks] = useStorage("tasks", [], isLoggedIn, token);
 
 	const toggleTask = (id) => {
-		setTasks(
-			tasks.map((task) =>
-				task.id === id ? { ...task, checked: !task.checked } : task
-			)
+		const updatedTasks = tasks.map((task) =>
+			task.id === id ? { ...task, checked: !task.checked } : task
 		);
+		setTasks(updatedTasks);
 	};
 
 	const deleteTask = (id) => {
-		setTasks(tasks.filter((task) => task.id !== id));
+		const updatedTasks = tasks.filter((task) => task.id !== id);
+		setTasks(updatedTasks);
 	};
 
 	const startEditing = (id) => {
-		setTasks((prev) =>
-			prev.map((task) => (task.id === id ? { ...task, isEditing: true } : task))
+		const updatedTasks = tasks.map((task) =>
+			task.id === id ? { ...task, isEditing: true } : task
 		);
+		setTasks(updatedTasks);
 	};
 
 	const saveTask = (id, newText) => {
-		setTasks((prev) =>
-			prev.map((task) =>
-				task.id === id ? { ...task, text: newText, isEditing: false } : task
-			)
+		const updatedTasks = tasks.map((task) =>
+			task.id === id ? { ...task, text: newText, isEditing: false } : task
 		);
+		setTasks(updatedTasks);
 	};
 
 	const [newTaskName, setNewTaskName] = useState("");
 	const createTask = (taskName) => {
 		if (!taskName.trim()) return;
 
-		setTasks((prev) => [
-			...prev,
-			{
-				id: prev.length + 1,
-				text: taskName,
-				checked: false,
-				isEditing: false,
-			},
-		]);
+		const newTask = {
+			id: Date.now(),
+			text: taskName,
+			checked: false,
+			isEditing: false,
+		};
+
+		const updatedTasks = [...tasks, newTask];
+		setTasks(updatedTasks);
 	};
 
 	const [addingTask, setAddingTask] = useState(false);

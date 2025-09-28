@@ -10,7 +10,6 @@ import birds from "./assets/birds.mp3";
 import notification from "./assets/notification.mp3";
 import lofiGuitar from "./assets/lofi-guitar.mp3";
 import { useState, useRef, useEffect } from "react";
-import { useLocalStorage } from "./components/localStorage.jsx";
 import { useStorage } from "./components/Storage.jsx";
 
 function App() {
@@ -89,6 +88,7 @@ function App() {
 				setAlarmVolume={setAlarmVolume}
 				isLoggedIn={isLoggedIn}
 				setIsLoggedIn={setIsLoggedIn}
+				setToken={setToken}
 			/>
 			<Pomodoro
 				pomoTimer={pomoTimer}
@@ -97,8 +97,9 @@ function App() {
 				timerSound={timerSound}
 				playTimerSound={playTimerSound}
 				title={title}
+				token={token}
 			/>
-			<Tasks />
+			<Tasks isLoggedIn={isLoggedIn} token={token} />
 			<Room />
 			<audio ref={audioRef} preload="auto" />
 		</div>

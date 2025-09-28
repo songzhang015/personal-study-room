@@ -8,6 +8,7 @@ function Account({
 	setPomoTimer,
 	setShortTimer,
 	setLongTimer,
+	setToken,
 }) {
 	const [loginEmail, setLoginEmail] = useState("");
 	const [loginPassword, setLoginPassword] = useState("");
@@ -27,9 +28,8 @@ function Account({
 
 			if (response.ok) {
 				const data = await response.json();
-				const token = data.token;
-
-				localStorage.setItem("jwt", token);
+				localStorage.setItem("jwt", data.token);
+				setToken(data.token);
 				setIsLoggedIn(true);
 
 				// Fetching the data
@@ -37,7 +37,7 @@ function Account({
 					"http://localhost:3000/users/data",
 					{
 						method: "GET",
-						headers: { Authorization: `Bearer ${token}` },
+						headers: { Authorization: `Bearer ${data.token}` },
 					}
 				);
 
@@ -72,9 +72,9 @@ function Account({
 
 			if (response.ok) {
 				const data = await response.json();
-				const token = data.token;
 
-				localStorage.setItem("jwt", token);
+				localStorage.setItem("jwt", data.token);
+				setToken(data.token);
 				setIsLoggedIn(true);
 
 				const keys = ["pomoTimer", "shortTimer", "longTimer"];
@@ -85,7 +85,7 @@ function Account({
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json",
-								Authorization: `Bearer ${token}`,
+								Authorization: `Bearer ${data.token}`,
 							},
 							body: JSON.stringify({ [key]: JSON.parse(stored) }),
 						});
@@ -110,10 +110,12 @@ function Account({
 			localStorage.removeItem("pomoTimer");
 			localStorage.removeItem("shortTimer");
 			localStorage.removeItem("longTimer");
+			localStorage.removeItem("tasks");
 
 			localStorage.setItem("pomoTimer", JSON.stringify(25));
 			localStorage.setItem("shortTimer", JSON.stringify(5));
 			localStorage.setItem("longTimer", JSON.stringify(15));
+			window.location.reload();
 		} catch (err) {
 			console.log(err.message);
 		}

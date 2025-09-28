@@ -7,6 +7,17 @@ const userSchema = new mongoose.Schema({
 		pomoTimer: { type: Number, default: 25 },
 		shortTimer: { type: Number, default: 5 },
 		longTimer: { type: Number, default: 20 },
+		tasks: {
+			type: [
+				{
+					id: Number,
+					text: String,
+					checked: Boolean,
+					isEditing: Boolean,
+				},
+			],
+			default: [],
+		},
 	},
 });
 

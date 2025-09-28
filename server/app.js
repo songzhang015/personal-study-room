@@ -3,7 +3,6 @@ import connectDB from "./db.js";
 import dotenv from "dotenv";
 import cors from "cors";
 import bcrypt from "bcrypt";
-
 import User from "./models/User.js";
 import usersRouter from "./routes/users.js";
 import authRouter from "./routes/auth.js";
@@ -35,17 +34,32 @@ const seed = async () => {
 			{
 				email: "alice@example.com",
 				password: await bcrypt.hash("password1", saltRounds),
-				preferences: { pomoTimer: 25, shortTimer: 5, longTimer: 20 },
+				preferences: {
+					pomoTimer: 25,
+					shortTimer: 5,
+					longTimer: 20,
+					tasks: [],
+				},
 			},
 			{
 				email: "bob@example.com",
 				password: await bcrypt.hash("password2", saltRounds),
-				preferences: { pomoTimer: 25, shortTimer: 5, longTimer: 20 },
+				preferences: {
+					pomoTimer: 25,
+					shortTimer: 5,
+					longTimer: 20,
+					tasks: [],
+				},
 			},
 			{
 				email: "charlie@example.com",
 				password: await bcrypt.hash("password3", saltRounds),
-				preferences: { pomoTimer: 25, shortTimer: 5, longTimer: 20 },
+				preferences: {
+					pomoTimer: 25,
+					shortTimer: 5,
+					longTimer: 20,
+					tasks: [],
+				},
 			},
 		];
 		await User.insertMany(users);

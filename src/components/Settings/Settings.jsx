@@ -21,6 +21,7 @@ function Settings({
 	setAlarmVolume,
 	isLoggedIn,
 	setIsLoggedIn,
+	setToken,
 }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const openMenu = () => {
@@ -91,6 +92,7 @@ function Settings({
 							setPomoTimer={setPomoTimer}
 							setShortTimer={setShortTimer}
 							setLongTimer={setLongTimer}
+							setToken={setToken}
 						/>
 					) : null}
 				</div>

@@ -1,18 +1,27 @@
 import "../styles/Pomodoro.css";
 import { useTimer } from "react-timer-hook";
 import { useEffect } from "react";
-import { useLocalStorage } from "./localStorage.jsx";
+import { useStorage } from "./Storage";
 
-function Pomodoro({ pomoTimer, shortTimer, longTimer, playTimerSound, title }) {
+function Pomodoro({
+	pomoTimer,
+	shortTimer,
+	longTimer,
+	playTimerSound,
+	title,
+	token,
+}) {
 	const expiryTimestamp = new Date();
 	expiryTimestamp.setMinutes(expiryTimestamp.getMinutes() + pomoTimer);
+
+	const [iteration, setIteration] = useStorage("iteration", 1, false, token);
 
 	const { seconds, minutes, hours, isRunning, pause, restart, resume } =
 		useTimer({
 			expiryTimestamp,
 			onExpire: () => {
 				playTimerSound();
-				setIteration((prev) => prev + 1);
+				setIteration((prev) => (prev || 0) + 1);
 				iteration % 4 === 0 ? longBreak() : shortBreak();
 			},
 			autoStart: false,
@@ -46,8 +55,6 @@ function Pomodoro({ pomoTimer, shortTimer, longTimer, playTimerSound, title }) {
 	useEffect(() => {
 		document.title = `${`${hours > 0 ? hours + ":" : ""}${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`} | ${title}`;
 	}, [hours, minutes, seconds, title]);
-
-	const [iteration, setIteration] = useLocalStorage("iteration", 1);
 
 	return (
 		<div className="pomodoro">

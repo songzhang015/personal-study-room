@@ -56,8 +56,8 @@ function useStorage(key, initialValue, isLoggedIn, token) {
 
 	const saveValue = async (newValue) => {
 		setValue(newValue);
-
 		if (isLoggedIn && token) {
+			console.log("SAVE: User is logged in and has a token.");
 			try {
 				await fetch(`http://localhost:3000/users/data/${key}`, {
 					method: "POST",
@@ -71,6 +71,7 @@ function useStorage(key, initialValue, isLoggedIn, token) {
 				console.log(err.message);
 			}
 		} else {
+			console.log("SAVE: User is not logged in and/or does not have a token.");
 			localStorage.setItem(key, JSON.stringify(newValue));
 		}
 	};
