@@ -40,6 +40,10 @@ function Pomodoro({ pomoTimer, shortTimer, longTimer, playTimerSound, title }) {
 	};
 
 	useEffect(() => {
+		resetPomodoro();
+	}, [pomoTimer, shortTimer, longTimer]);
+
+	useEffect(() => {
 		document.title = `${`${hours > 0 ? hours + ":" : ""}${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`} | ${title}`;
 	}, [hours, minutes, seconds, title]);
 

@@ -1,6 +1,6 @@
 import "./App.css";
 import RoomTitle from "./components/RoomTitle";
-import Settings from "./components/Settings";
+import Settings from "./components/Settings/Settings";
 import Pomodoro from "./components/Pomodoro";
 import Tasks from "./components/Tasks";
 import Room from "./components/Room";
@@ -9,13 +9,40 @@ import bellTwo from "./assets/bell-two.mp3";
 import birds from "./assets/birds.mp3";
 import notification from "./assets/notification.mp3";
 import lofiGuitar from "./assets/lofi-guitar.mp3";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLocalStorage } from "./components/localStorage.jsx";
+import { useStorage } from "./components/Storage.jsx";
 
 function App() {
-	const [pomoTimer, setPomoTimer] = useLocalStorage("pomoTimer", 25);
-	const [shortTimer, setShortTimer] = useLocalStorage("shortTimer", 5);
-	const [longTimer, setLongTimer] = useLocalStorage("longTimer", 20);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [token, setToken] = useState(null);
+
+	useEffect(() => {
+		const storedToken = localStorage.getItem("jwt");
+		if (storedToken) {
+			setToken(storedToken);
+			setIsLoggedIn(true);
+		}
+	}, []);
+
+	const [pomoTimer, setPomoTimer] = useStorage(
+		"pomoTimer",
+		25,
+		isLoggedIn,
+		token
+	);
+	const [shortTimer, setShortTimer] = useStorage(
+		"shortTimer",
+		5,
+		isLoggedIn,
+		token
+	);
+	const [longTimer, setLongTimer] = useStorage(
+		"longTimer",
+		20,
+		isLoggedIn,
+		token
+	);
 
 	const defaultTitle = "Personal Study Room";
 	const [title, setTitle] = useState(defaultTitle);
@@ -60,6 +87,8 @@ function App() {
 				playTimerSound={playTimerSound}
 				alarmVolume={alarmVolume}
 				setAlarmVolume={setAlarmVolume}
+				isLoggedIn={isLoggedIn}
+				setIsLoggedIn={setIsLoggedIn}
 			/>
 			<Pomodoro
 				pomoTimer={pomoTimer}

@@ -144,3 +144,47 @@
 .volume-input {
 	cursor: pointer;
 }
+
+.account-login,
+.account-register {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.account-login input,
+.account-register input {
+	padding: 0.35rem;
+	background-color: transparent;
+	color: white;
+	border: 1px solid white;
+	outline: none;
+	width: 14rem;
+}
+
+.submit-btn {
+	width: 6rem;
+	border-radius: 16px;
+	color: white;
+	background: none;
+	border: 2px solid white;
+	cursor: pointer;
+	padding: 0.4rem 0.8rem;
+	margin-top: 0.5rem;
+}
+
+.account-section p {
+	margin-top: 0.5rem;
+}
+
+.account-section span {
+	font-weight: bold;
+	cursor: pointer;
+	text-decoration: underline;
+}

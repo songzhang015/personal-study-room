@@ -1,39 +1,61 @@
 import express from "express";
 import connectDB from "./db.js";
 import dotenv from "dotenv";
+import cors from "cors";
+import bcrypt from "bcrypt";
 
 import User from "./models/User.js";
+import usersRouter from "./routes/users.js";
+import authRouter from "./routes/auth.js";
 
 dotenv.config();
 
 const app = express();
 const port = 3000;
 
+app.use(
+	cors({
+		origin: "http://localhost:5173",
+		credentials: true,
+	})
+);
+
+app.use(express.json());
+
 app.get("/", (req, res) => res.send("Hello World!"));
+app.use("/users", usersRouter);
+app.use("/auth", authRouter);
 
-app.get("/users", async (req, res) => {
-	try {
-		const users = await User.find();
-		res.json(users);
-	} catch (err) {
-		res.status(500).json({ message: err.message });
-	}
-});
-
-const preloadUsers = async () => {
+const seed = async () => {
 	const count = await User.countDocuments();
 	if (count === 0) {
-		await User.insertMany([
-			{ email: "alice@example.com", password: "password1" },
-			{ email: "bob@example.com", password: "password2" },
-			{ email: "charlie@example.com", password: "password3" },
-		]);
+		const saltRounds = 10;
+
+		const users = [
+			{
+				email: "alice@example.com",
+				password: await bcrypt.hash("password1", saltRounds),
+				preferences: { pomoTimer: 25, shortTimer: 5, longTimer: 20 },
+			},
+			{
+				email: "bob@example.com",
+				password: await bcrypt.hash("password2", saltRounds),
+				preferences: { pomoTimer: 25, shortTimer: 5, longTimer: 20 },
+			},
+			{
+				email: "charlie@example.com",
+				password: await bcrypt.hash("password3", saltRounds),
+				preferences: { pomoTimer: 25, shortTimer: 5, longTimer: 20 },
+			},
+		];
+		await User.insertMany(users);
 	}
 };
 
 const run = async () => {
 	await connectDB();
-	await preloadUsers();
+	//await User.deleteMany();
+	await seed();
 	app.listen(port, () => console.log(`Server running on port ${port}`));
 };
 
