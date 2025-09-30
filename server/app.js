@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import bcrypt from "bcrypt";
 import User from "./models/User.js";
+import Code from "./models/Code.js";
 import usersRouter from "./routes/users.js";
 import authRouter from "./routes/auth.js";
 
@@ -34,6 +35,7 @@ const seed = async () => {
 			{
 				email: "alice@example.com",
 				password: await bcrypt.hash("password1", saltRounds),
+				roomCode: "000000",
 				preferences: {
 					pomoTimer: 25,
 					shortTimer: 5,
@@ -45,6 +47,7 @@ const seed = async () => {
 			{
 				email: "bob@example.com",
 				password: await bcrypt.hash("password2", saltRounds),
+				roomCode: "000001",
 				preferences: {
 					pomoTimer: 25,
 					shortTimer: 5,
@@ -56,6 +59,7 @@ const seed = async () => {
 			{
 				email: "charlie@example.com",
 				password: await bcrypt.hash("password3", saltRounds),
+				roomCode: "000002",
 				preferences: {
 					pomoTimer: 25,
 					shortTimer: 5,
@@ -65,7 +69,14 @@ const seed = async () => {
 				},
 			},
 		];
-		await User.insertMany(users);
+		const insertedUsers = await User.insertMany(users);
+
+		const codes = insertedUsers.map((user) => ({
+			roomCode: user.roomCode,
+			ownerId: user._id,
+		}));
+
+		await Code.insertMany(codes);
 	}
 };
 

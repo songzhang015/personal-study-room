@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
 	email: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
+	roomCode: { type: String, unique: true, required: true },
 	preferences: {
 		pomoTimer: { type: Number, default: 25 },
 		shortTimer: { type: Number, default: 5 },

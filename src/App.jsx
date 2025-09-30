@@ -106,13 +106,8 @@ function App() {
 				title={title}
 				token={token}
 			/>
-			<Tasks
-				isLoggedIn={isLoggedIn}
-				token={token}
-				tasks={tasks}
-				setTasks={setTasks}
-			/>
-			<Room />
+			<Tasks tasks={tasks} setTasks={setTasks} />
+			<Room token={token} />
 			<audio ref={audioRef} preload="auto" />
 		</div>
 	);

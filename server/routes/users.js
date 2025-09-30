@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import Code from "../models/Code.js";
 import authenticate from "../middleware/auth.js";
 
 const router = express.Router();
@@ -42,13 +43,28 @@ router.post("/", async (req, res) => {
 			return res.status(409).json({ message: "Email already registered" });
 		}
 
+		let newCode = 0;
+		let exists = true;
+
+		while (exists) {
+			newCode = Math.floor(Math.random() * 1000000)
+				.toString()
+				.padStart(6, "0");
+			exists = await Code.findOne({ roomCode: newCode });
+		}
+
 		const hashedPassword = await bcrypt.hash(password, saltRounds);
-		const user = new User({ email, password: hashedPassword });
+		const user = new User({
+			email,
+			password: hashedPassword,
+			roomCode: newCode,
+		});
 		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, {
 			expiresIn: process.env.JWT_EXPIRATION,
 		});
 
 		await user.save();
+		await Code.create({ roomCode: newCode, ownerId: user._id });
 
 		res.status(201).json({ message: "Registration successful", token });
 	} catch (err) {
@@ -63,6 +79,18 @@ router.get("/data", authenticate, async (req, res) => {
 		if (!user) return res.status(404).json({ message: "User not found" });
 
 		res.json(user.preferences);
+	} catch (err) {
+		res.status(500).json({ message: err.message });
+	}
+});
+
+// GET a user's room code
+router.get("/data/code", authenticate, async (req, res) => {
+	try {
+		const user = await User.findById(req.user.id);
+		if (!user) return res.status(404).json({ message: "User not found" });
+
+		res.json({ roomCode: user.roomCode });
 	} catch (err) {
 		res.status(500).json({ message: err.message });
 	}

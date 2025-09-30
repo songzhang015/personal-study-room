@@ -1,10 +1,9 @@
 import "../styles/Tasks.css";
 import { useState } from "react";
-import { useStorage } from "./Storage";
 import editIcon from "../assets/edit-icon.svg";
 import deleteIcon from "../assets/delete-icon.svg";
 
-function Tasks({ isLoggedIn, token, tasks, setTasks }) {
+function Tasks({ tasks, setTasks }) {
 	const [viewMode, setViewMode] = useState("minimized"); // minimized, expanded
 
 	const toggleTask = (id) => {
