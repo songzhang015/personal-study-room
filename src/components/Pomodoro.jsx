@@ -2,6 +2,7 @@ import "../styles/Pomodoro.css";
 import { useTimer } from "react-timer-hook";
 import { useEffect } from "react";
 import { useStorage } from "./Storage";
+import buttonPress from "../assets/button-press.mp3";
 
 function Pomodoro({
 	pomoTimer,
@@ -48,6 +49,11 @@ function Pomodoro({
 		pause();
 	};
 
+	const playButtonSound = () => {
+		const audio = new Audio(buttonPress);
+		audio.play();
+	};
+
 	useEffect(() => {
 		resetPomodoro();
 	}, [pomoTimer, shortTimer, longTimer]);
@@ -67,12 +73,24 @@ function Pomodoro({
 				{`${hours > 0 ? hours + ":" : ""}${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`}
 			</h1>
 			{!isRunning && (
-				<button className="start-btn" onClick={resume}>
+				<button
+					className="start-btn"
+					onClick={() => {
+						resume();
+						playButtonSound();
+					}}
+				>
 					start
 				</button>
 			)}
 			{isRunning && (
-				<button className="start-btn" onClick={pause}>
+				<button
+					className="start-btn"
+					onClick={() => {
+						pause();
+						playButtonSound();
+					}}
+				>
 					pause
 				</button>
 			)}
