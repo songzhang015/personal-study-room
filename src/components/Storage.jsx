@@ -15,9 +15,6 @@ function useStorage(key, initialValue, isLoggedIn, token) {
 
 					if (prefs[key] !== undefined) {
 						setValue(prefs[key]);
-					} else {
-						// If no account preferences (ex. registration), migrate local data to DB instead
-						await migrateLocalToDB(key, token, setValue);
 					}
 				} else {
 					// Fetch localStorage preferences, as user is not logged in
@@ -35,24 +32,6 @@ function useStorage(key, initialValue, isLoggedIn, token) {
 
 		fetchPreferences();
 	}, [key, isLoggedIn, token]);
-
-	async function migrateLocalToDB(key, token, setValue) {
-		// Searches localStorage for current data, then sends data to DB and removes from localStorage
-		const stored = localStorage.getItem(key);
-		if (stored !== null) {
-			const parsed = JSON.parse(stored);
-			await fetch(`http://localhost:3000/users/data/${key}`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify({ [key]: parsed }),
-			});
-			localStorage.removeItem(key);
-			setValue(parsed);
-		}
-	}
 
 	const saveValue = async (newValue) => {
 		setValue(newValue);

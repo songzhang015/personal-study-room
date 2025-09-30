@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
 			],
 			default: [],
 		},
+		roomTitle: { type: String, default: "Personal Study Room" },
 	},
 });
 

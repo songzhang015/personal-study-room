@@ -32,22 +32,7 @@ function Account({
 				setToken(data.token);
 				setIsLoggedIn(true);
 
-				// Fetching the data
-				const settingsResponse = await fetch(
-					"http://localhost:3000/users/data",
-					{
-						method: "GET",
-						headers: { Authorization: `Bearer ${data.token}` },
-					}
-				);
-
-				if (settingsResponse.ok) {
-					const settings = await settingsResponse.json();
-
-					setPomoTimer(settings.pomoTimer);
-					setShortTimer(settings.shortTimer);
-					setLongTimer(settings.longTimer);
-				}
+				window.location.reload();
 				console.log("SUCCESS");
 			} else {
 				console.log("INVALID");
@@ -77,7 +62,13 @@ function Account({
 				setToken(data.token);
 				setIsLoggedIn(true);
 
-				const keys = ["pomoTimer", "shortTimer", "longTimer"];
+				const keys = [
+					"pomoTimer",
+					"shortTimer",
+					"longTimer",
+					"tasks",
+					"roomTitle",
+				];
 				for (const key of keys) {
 					const stored = localStorage.getItem(key);
 					if (stored !== null) {
@@ -92,6 +83,7 @@ function Account({
 						localStorage.removeItem(key);
 					}
 				}
+				window.location.reload();
 				console.log("SUCCESS");
 			} else {
 				console.log("INVALID");
@@ -111,10 +103,8 @@ function Account({
 			localStorage.removeItem("shortTimer");
 			localStorage.removeItem("longTimer");
 			localStorage.removeItem("tasks");
+			localStorage.removeItem("roomTitle");
 
-			localStorage.setItem("pomoTimer", JSON.stringify(25));
-			localStorage.setItem("shortTimer", JSON.stringify(5));
-			localStorage.setItem("longTimer", JSON.stringify(15));
 			window.location.reload();
 		} catch (err) {
 			console.log(err.message);

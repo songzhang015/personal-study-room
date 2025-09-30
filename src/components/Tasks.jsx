@@ -1,13 +1,11 @@
 import "../styles/Tasks.css";
 import { useState } from "react";
-import { useLocalStorage } from "./localStorage";
 import { useStorage } from "./Storage";
 import editIcon from "../assets/edit-icon.svg";
 import deleteIcon from "../assets/delete-icon.svg";
 
-function Tasks({ isLoggedIn, token }) {
+function Tasks({ isLoggedIn, token, tasks, setTasks }) {
 	const [viewMode, setViewMode] = useState("minimized"); // minimized, expanded
-	const [tasks, setTasks] = useStorage("tasks", [], isLoggedIn, token);
 
 	const toggleTask = (id) => {
 		const updatedTasks = tasks.map((task) =>

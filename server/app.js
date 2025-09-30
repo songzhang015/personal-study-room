@@ -39,6 +39,7 @@ const seed = async () => {
 					shortTimer: 5,
 					longTimer: 20,
 					tasks: [],
+					roomTitle: "Alice's Room",
 				},
 			},
 			{
@@ -49,6 +50,7 @@ const seed = async () => {
 					shortTimer: 5,
 					longTimer: 20,
 					tasks: [],
+					roomTitle: "Bob's Room",
 				},
 			},
 			{
@@ -59,6 +61,7 @@ const seed = async () => {
 					shortTimer: 5,
 					longTimer: 20,
 					tasks: [],
+					roomTitle: "Charlie's Room",
 				},
 			},
 		];

@@ -43,8 +43,15 @@ function App() {
 		token
 	);
 
+	const [tasks, setTasks] = useStorage("tasks", [], isLoggedIn, token);
+
 	const defaultTitle = "Personal Study Room";
-	const [title, setTitle] = useState(defaultTitle);
+	const [title, setTitle] = useStorage(
+		"roomTitle",
+		defaultTitle,
+		isLoggedIn,
+		token
+	);
 
 	const soundOptions = [
 		{ label: "Bell One", value: bellOne },
@@ -99,7 +106,12 @@ function App() {
 				title={title}
 				token={token}
 			/>
-			<Tasks isLoggedIn={isLoggedIn} token={token} />
+			<Tasks
+				isLoggedIn={isLoggedIn}
+				token={token}
+				tasks={tasks}
+				setTasks={setTasks}
+			/>
 			<Room />
 			<audio ref={audioRef} preload="auto" />
 		</div>
