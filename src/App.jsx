@@ -62,7 +62,12 @@ function App() {
 	];
 
 	const [timerSound, setTimerSound] = useState(bellOne);
-	const [alarmVolume, setAlarmVolume] = useState(1);
+	const [alarmVolume, setAlarmVolume] = useStorage(
+		"alarmVolume",
+		0.5,
+		isLoggedIn,
+		token
+	);
 	const audioRef = useRef(null);
 
 	const playTimerSound = (sound = timerSound, volume = alarmVolume) => {

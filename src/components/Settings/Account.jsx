@@ -68,6 +68,7 @@ function Account({
 					"longTimer",
 					"tasks",
 					"roomTitle",
+					"alarmVolume",
 				];
 				for (const key of keys) {
 					const stored = localStorage.getItem(key);
