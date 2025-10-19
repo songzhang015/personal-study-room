@@ -61,7 +61,13 @@ function App() {
 		{ label: "Lofi Guitar", value: lofiGuitar },
 	];
 
-	const [timerSound, setTimerSound] = useState(bellOne);
+	const [timerSound, setTimerSound] = useStorage(
+		"alarmSelection",
+		bellOne,
+		isLoggedIn,
+		token
+	);
+
 	const [alarmVolume, setAlarmVolume] = useStorage(
 		"alarmVolume",
 		0.5,

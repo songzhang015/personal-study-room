@@ -1,5 +1,5 @@
 .room {
-	position: absolute;
+	position: fixed;
 	bottom: 1.5rem;
 	right: 2rem;
 }
@@ -8,15 +8,53 @@
 	color: var(--white);
 	font-family: "Roboto", sans-serif;
 	display: flex;
+	justify-content: center;
 	align-items: center;
-	gap: 0.5rem;
+
 	font-size: 1.5rem;
 	font-weight: normal;
 	background-color: transparent;
-	border: none;
 	cursor: pointer;
 
-	border: none;
+	border: 2px solid rgba(255, 255, 255, 0);
 	border-top: 2px solid white;
-	padding: 0.5rem 5rem;
+	width: 15rem;
+	height: 3rem;
+	transition:
+		width 0.75s,
+		height 0.75s,
+		border 0.75s;
+}
+
+.room-btn h2 {
+	font-size: 1.5rem;
+}
+
+.room-btn.expanded {
+	width: 22rem;
+	height: 28rem;
+	border: 2px solid white;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+	border-radius: 12px;
+	padding: 0;
+	cursor: default;
+}
+
+.room-btn .row {
+	display: flex;
+	justify-content: space-between;
+	cursor: pointer;
+	width: 100%;
+	padding: 1rem;
+}
+
+.room-btn .divider {
+	width: 100%;
+	border-bottom: 1px solid white;
+	margin-bottom: 1rem;
+	opacity: 0.25;
 }

@@ -43,6 +43,7 @@ const seed = async () => {
 					tasks: [],
 					roomTitle: "Alice's Room",
 					alarmVolume: 0.2,
+					alarmSelection: "bellOne",
 				},
 			},
 			{
@@ -56,6 +57,7 @@ const seed = async () => {
 					tasks: [],
 					roomTitle: "Bob's Room",
 					alarmVolume: 0.4,
+					alarmSelection: "bellOne",
 				},
 			},
 			{
@@ -69,6 +71,7 @@ const seed = async () => {
 					tasks: [],
 					roomTitle: "Charlie's Room",
 					alarmVolume: 0.6,
+					alarmSelection: "bellOne",
 				},
 			},
 		];

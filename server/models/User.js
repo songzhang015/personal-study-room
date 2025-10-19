@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
 		},
 		roomTitle: { type: String, default: "Personal Study Room" },
 		alarmVolume: { type: Number, default: 0.5 },
+		alarmSelection: { type: String, default: "bellOne" },
 	},
 });
 

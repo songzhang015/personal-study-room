@@ -69,6 +69,7 @@ function Account({
 					"tasks",
 					"roomTitle",
 					"alarmVolume",
+					"alarmSelection",
 				];
 				for (const key of keys) {
 					const stored = localStorage.getItem(key);
@@ -105,6 +106,8 @@ function Account({
 			localStorage.removeItem("longTimer");
 			localStorage.removeItem("tasks");
 			localStorage.removeItem("roomTitle");
+			localStorage.removeItem("alarmVolume");
+			localStorage.removeItem("alarmSelection");
 
 			window.location.reload();
 		} catch (err) {

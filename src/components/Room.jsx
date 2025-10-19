@@ -1,6 +1,9 @@
 import "../styles/Room.css";
+import { useState } from "react";
 
 function Room({ token }) {
+	const [viewMode, setViewMode] = useState("minimized"); // minimized, expanded
+
 	const lookupCode = async () => {
 		if (token) {
 			try {
@@ -17,17 +20,24 @@ function Room({ token }) {
 
 	return (
 		<div className="room">
-			<button
-				className="room-btn"
-				onClick={async () => {
-					if (token) {
-						const code = await lookupCode();
-						console.log(code);
-					}
-				}}
+			<div
+				className={`room-btn ${viewMode}`}
+				onClick={
+					viewMode === "minimized" ? () => setViewMode("expanded") : undefined
+				}
 			>
-				Room
-			</button>
+				{viewMode === "minimized" && <h2>Room</h2>}
+
+				{viewMode === "expanded" && (
+					<>
+						<div className="row" onClick={() => setViewMode("minimized")}>
+							<h2>Room</h2>
+							{viewMode === "expanded" && <p className="minimize-btn">˅</p>}
+						</div>
+						<div className="divider"></div>
+					</>
+				)}
+			</div>
 		</div>
 	);
 }
