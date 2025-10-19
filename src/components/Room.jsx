@@ -1,8 +1,9 @@
 import "../styles/Room.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Room({ token }) {
 	const [viewMode, setViewMode] = useState("minimized"); // minimized, expanded
+	const [roomCode, setRoomCode] = useState("");
 
 	const lookupCode = async () => {
 		if (token) {
@@ -17,6 +18,17 @@ function Room({ token }) {
 			}
 		}
 	};
+
+	useEffect(() => {
+		if (!token) return;
+
+		const fetchCode = async () => {
+			const code = await lookupCode();
+			setRoomCode(code || "");
+		};
+
+		fetchCode();
+	}, [token]);
 
 	return (
 		<div className="room">
@@ -35,6 +47,12 @@ function Room({ token }) {
 							{viewMode === "expanded" && <p className="minimize-btn">˅</p>}
 						</div>
 						<div className="divider"></div>
+						<p className="room-code-title">Room Code</p>
+						<p>{roomCode}</p>
+						<div className="room-btn-group">
+							<button>Join</button>
+							<button>Chat</button>
+						</div>
 					</>
 				)}
 			</div>

@@ -58,3 +58,44 @@
 	margin-bottom: 1rem;
 	opacity: 0.25;
 }
+
+.minimize-btn {
+	transform: scaleX(1.75) translateY(5px);
+	font-size: 0.9rem;
+	opacity: 0.9;
+}
+
+.room-code-title {
+	margin-top: 6rem;
+	text-decoration: underline;
+}
+
+.room-btn-group {
+	margin-top: auto;
+	margin-bottom: 1rem;
+	display: flex;
+}
+
+.room-btn-group button {
+	border: 2px solid white;
+	background-color: transparent;
+	color: white;
+	padding: 0.5rem 3.5rem;
+	cursor: pointer;
+	border-right: none;
+	font-size: 1rem;
+}
+
+.room-btn-group button:last-child {
+	border-right: 2px solid white;
+}
+
+.room-btn-group button:first-child {
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+
+.room-btn-group button:last-child {
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
